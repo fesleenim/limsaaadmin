@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 
 function Category() {
     const [categories, setCategories] = useState([]);
+
+    
     const [loading, setLoading] = useState(true);
     const [nameUz, setNameUz] = useState('');
     const [nameRu, setNameRu] = useState('');
