@@ -5,12 +5,10 @@ import { toast } from 'react-toastify';
 
 function Category() {
     const [categories, setCategories] = useState([]);
-
-    
     const [loading, setLoading] = useState(true);
     const [nameUz, setNameUz] = useState('');
     const [nameRu, setNameRu] = useState('');
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState();
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false); // Yangi kategoriya qo'shish uchun modal
     const imgUrl = "https://realauto.limsa.uz/api/uploads/images";
 
@@ -51,20 +49,23 @@ function Category() {
         const formData = new FormData();
         formData.append("name_en", nameUz);
         formData.append("name_ru", nameRu);
-        formData.append("image", images); // Rasmni to‘g‘ri formatda qo‘shish
+        formData.append("images", images); // Backend qabul qiladigan nomni tekshiring
     
-        axios({
-            url: 'https://realauto.limsa.uz/api/categories',
-            method: 'POST',
-            data: formData,
+        console.log("FormData tarkibi:");
+        for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1]); // FormData tarkibini ko‘rish
+        }
+    
+        axios.post("https://realauto.limsa.uz/api/categories", formData, {
             headers: {
-                Authorization: `Bearer ${token}`, // Token qo‘shish
-            }
+                Authorization: `Bearer ${token}`,
+            },
         })
         .then(res => {
+            console.log("Serverdan javob:", res);
             toast.success("Kategoriya qo'shildi!");
             setShowAddCategoryModal(false);
-            getCategory(); // Yangilangan kategoriyalarni olish
+            getCategory();
         })
         .catch(error => {
             console.error("Kategoriya qo'shishda xatolik:", error.response?.data || error);
@@ -74,13 +75,14 @@ function Category() {
     
     
     
+    
 
 
     return (
         <div>
             {loading ? (
                 <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#493D9E]"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#000957]"></div>
                     <span className="ml-3 text-xl text-gray-700">Yuklanmoqda...</span>
                 </div>
             ) : (
@@ -88,14 +90,14 @@ function Category() {
                     <div className="mb-4">
                         <button
                             onClick={() => setShowAddCategoryModal(true)} // Yangi kategoriya qo'shish uchun modalni ochish
-                            className="bg-[#493D9E] text-white px-5 py-2 rounded-lg"
+                            className="bg-[#000957] text-white px-5 py-2 rounded-lg"
                         >
                             Yangi Kategoriya Qo'shish
                         </button>
                     </div>
 
                     <table className="w-full border-collapse table-auto bg-white shadow-md rounded-lg">
-                        <thead className="bg-[#B2A5FF] text-white">
+                        <thead className="bg-[#000957] text-white">
                             <tr>
                                 <th className="border border-gray-300 p-3 text-left">Raqam</th>
                                 <th className="border border-gray-300 p-3 text-left">Rasmi</th>
@@ -119,7 +121,7 @@ function Category() {
                                     <td className="border border-gray-300 p-3">{category.name_ru}</td>
                                     <td className="border border-gray-300 p-3 text-center">
                                         <button
-                                            className="text-[#B2A5FF] hover:text-[#B2A5FF] transition-colors"
+                                            className="text-[#000957] hover:text-[#000957] transition-colors"
                                             onClick={() => handleEdit(category)} // Qalamchani bosganda modalni ochish
                                         >
                                             <BorderColorIcon size={24} />
@@ -142,7 +144,7 @@ function Category() {
                             <input
                                 type="text"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                onChange={(e) => setNameUz(e.target.value)}
+                                onChange={(e) => setNameUz(e?.target?.value)}
                             />
                         </div>
                         <div className="mb-4">
@@ -150,7 +152,7 @@ function Category() {
                             <input
                                 type="text"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                onChange={(e) => setNameRu(e.target.value)}
+                                onChange={(e) => setNameRu(e?.target?.value)}
                             />
                         </div>
                         <div className="mb-4">
@@ -158,13 +160,13 @@ function Category() {
                             <input
                                 type="file"
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                onChange={(e) => setImages(e.target.files[0])}
+                                onChange={(e) => setImages(e?.target?.files[0])}
                             />
                         </div>
                         <div className="flex justify-end">
                             <button
                                 onClick={handleAddCategory}
-                                className="bg-[#493D9E] text-white px-5 py-2 rounded-lg"
+                                className="bg-[#000957] text-white px-5 py-2 rounded-lg"
                             >
                                 Qo'shish
                             </button>

@@ -28,27 +28,46 @@ function Layout() {
             >
                 <Typography variant="h6" sx={{ marginBottom: 3, fontWeight: 'bold' }}>Admin Panel</Typography>
                 <NavLink to="/" className="block mb-2.5">
-                    <button className="bg-[#493D9E] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
                         Categories
                     </button>
                 </NavLink>
                 <NavLink to="/brands" className="block mb-2.5">
-                    <button className="bg-[#493D9E] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
                         Brands
                     </button>
                 </NavLink>
-
+                <NavLink to="/models" className="block mb-2.5">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                        Models
+                    </button>
+                </NavLink>
+                <NavLink to="/city" className="block mb-2.5">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                        City
+                    </button>
+                </NavLink>
+                <NavLink to="/location" className="block mb-2.5">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                        Location
+                    </button>
+                </NavLink>
+                <NavLink to="/cars" className="block mb-2.5">
+                    <button className="bg-[#000957] text-white px-5 py-2 rounded-lg w-full hover:bg-[#3b2b78]">
+                        Cars
+                    </button>
+                </NavLink>
             </Drawer>
 
             {/* Main content area */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '100vh' }}>
+            <Box  sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '100vh' }}>
                 {/* AppBar */}
-                <AppBar position="fixed" sx={{ backgroundColor: '#493D9E', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+                <AppBar  position="fixed" sx={{ backgroundColor: '#000957', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                     <Toolbar>
                         <Typography variant="h6" sx={{ flexGrow: 1 }}>
                             Admin Panel
                         </Typography>
-                        <button className="bg-[#B2A5FF] text-white px-5 py-2 rounded-lg  hover:bg-[#3b2b78]" onClick={Logout}>
+                        <button className="bg-[#344CB7] text-white px-5 py-2 rounded-lg  hover:bg-[#3b2b78]" onClick={Logout}>
                             Log out
                         </button>
                     </Toolbar>
