@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { toast } from 'react-toastify';
-import { data } from 'react-router';
 
 function Cars() {
     const [carss, setCars] = useState([]);
@@ -24,6 +23,7 @@ function Cars() {
                 'Authorization': `Bearer ${token}` 
             }
         }).then((res) => {
+          
             setCars(res.data.data);
             setLoading(false);
         }).catch((error) => {
@@ -37,7 +37,6 @@ function Cars() {
     }, []);
 
 
-    // Yangi mashina qo'shish
     const handleAddCars = () => {
         if (!year || !images) {
             toast.error("Iltimos, barcha maydonlarni to'ldiring!");
@@ -101,7 +100,7 @@ function Cars() {
                                 <th className="border border-gray-300 p-3 text-left">Raqam</th>
                                 <th className="border border-gray-300 p-3 text-left">Rasmi</th>
                                 <th className="border border-gray-300 p-3 text-left">Nomi</th>
-                                <th className="border border-gray-300 p-3 text-center">Edit</th>
+                                <th className="border border-gray-300 p-3 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,8 +109,8 @@ function Cars() {
                                     <td className="border border-gray-300 p-3">{index + 1}</td>
                                     <td className="border border-gray-300 p-3">
                                         <img
-                                            src={`${imgUrl}/${cars.image_src}`} 
-                                            alt={cars.name_en}
+                                            src={`${imgUrl}/${cars.car_images[0].image.src}`} 
+                                            alt={cars.image}
                                             className="w-16  rounded-[50%] h-16 mx-auto"
                                         />
                                     </td>
@@ -119,7 +118,6 @@ function Cars() {
                                     <td className="border border-gray-300 p-3 text-center">
                                         <button
                                             className="text-[#000957] hover:text-[#000957] transition-colors"
-                                            onClick={() => handleEdit(cars)} 
                                         >
                                             <BorderColorIcon size={24} />
                                         </button>

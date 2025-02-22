@@ -10,7 +10,7 @@ function LoginPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('accessToken');
         if (token) {
             navigate('/'); // Agar token bo'lsa, admin panelga o'tadi
         }
